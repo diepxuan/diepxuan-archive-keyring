@@ -201,7 +201,7 @@ echo "release_tag: $release_tag+$DISTRIB~$RELEASE"
 echo "package_clog: $package_clog"
 # dch --newversion $release_tag+$DISTRIB~$RELEASE --distribution $CODENAME "$package_clog"
 # dch --package $owner --newversion $release_tag+$DISTRIB~$RELEASE --distribution $CODENAME -- "$package_clog"
-dch --package $owner --distribution $CODENAME -- "$package_clog"
+dch --increment --distribution $CODENAME -- "$package_clog"
 end_group
 
 start_group Show log
