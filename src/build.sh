@@ -195,6 +195,7 @@ end_group
 start_group Update Package Configuration in Changelog
 package_clog=${package_clog:-$GIT_COMMITTER_MESSAGE}
 package_clog=${package_clog:-"Update package"}
+$release_tag=${release_tag:-$(cat $changelog | head -n 1 | awk '{print $2}' | sed 's|[()]||g')}
 
 echo "release_tag: $release_tag+$DISTRIB~$RELEASE"
 echo "package_clog: $package_clog"
