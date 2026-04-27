@@ -142,7 +142,8 @@ $SUDO apt install -y libdistro-info-perl
 $SUDO apt install $INPUT_APT_OPTS -- $INPUT_EXTRA_BUILD_DEPS
 
 # shellcheck disable=SC2086
-cat $controlin | tee $control
+# Copy control.in to control if exists
+[[ -f $controlin ]] && cat $controlin | tee $control
 $SUDO apt build-dep $INPUT_APT_OPTS -- "$source_dir" || true
 end_group
 
