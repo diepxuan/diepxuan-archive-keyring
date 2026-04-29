@@ -180,12 +180,11 @@ EOF
 done
 
 gpg --list-secret-keys --keyid-format=long
-mkdir -p "$source_dir/usr/share/keyrings"
-gpg --export "$GPG_KEY_ID" > "$source_dir/usr/share/keyrings/diepxuan.gpg"
-
 if gpg --list-secret-keys --keyid-format=long | grep -q "sec"; then
     export DEB_SIGN_KEYID=$(gpg --list-keys --with-colons --fingerprint | awk -F: '/fpr:/ {print $10; exit}')
 fi
+mkdir -p "$source_dir/usr/share/keyrings"
+gpg --export "$DEB_SIGN_KEYID" > "$source_dir/usr/share/keyrings/diepxuan.gpg"
 gpg --list-secret-keys --keyid-format=long
 end_group
 
