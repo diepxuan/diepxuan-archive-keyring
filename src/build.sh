@@ -178,7 +178,8 @@ save
 EOF
 
 gpg --list-secret-keys --keyid-format=long
-gpg --export "$GPG_KEY_ID" > $source_dir/usr/share/keyrings/diepxuan.gpg
+mkdir -p "$source_dir/usr/share/keyrings"
+gpg --export "$GPG_KEY_ID" > "$source_dir/usr/share/keyrings/diepxuan.gpg"
 
 if gpg --list-secret-keys --keyid-format=long | grep -q "sec"; then
     export DEB_SIGN_KEYID=$(gpg --list-keys --with-colons --fingerprint | awk -F: '/fpr:/ {print $10; exit}')
@@ -187,6 +188,7 @@ gpg --list-secret-keys --keyid-format=long
 end_group
 
 start_group Update APT Source
+mkdir -p "$source_dir/etc/apt/sources.list.d"
 echo "deb [signed-by=/usr/share/keyrings/diepxuan.gpg] $REPO_URL $CODENAME main" | $SUDO tee $source_dir/etc/apt/sources.list.d/diepxuan.list
 end_group
 
